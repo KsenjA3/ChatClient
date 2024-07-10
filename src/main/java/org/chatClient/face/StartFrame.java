@@ -1,14 +1,20 @@
 package org.chatClient.face;
 
+import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.chatClient.fittings.MyFonts;
 import org.chatClient.fittings.MySizePanel;
-import org.chatClient.socket.SocketClient;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
 
 
 /** In this program organize GUI for initiation
@@ -16,14 +22,18 @@ import java.io.IOException;
  * If user catch a mistake, the response will
  * be written in the window.
  * */
-public class InitiateFrame  extends JFrame {
+@Log4j2
+public class StartFrame extends JFrame {
     private static final int WINDOW_POS_X=100;
     private static final int WINDOW_POS_Y=100;
+    static final  String host = "192.168.0.111";
+    static final  int port = 8189;
+
 
     JTextField name, password;
     JLabel reactionLabel;
 
-    public InitiateFrame(){
+    public StartFrame(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocation(WINDOW_POS_X, WINDOW_POS_Y);
         setSize(MySizePanel.WIDTH_SIZE_WINDOW_INIT.getSize(),
@@ -103,9 +113,10 @@ public class InitiateFrame  extends JFrame {
 
 
     void makeSocket(String command)  {
-        SocketClient socketClient = new SocketClient();
+       String response="";
+       Socket socketClient;
 
-        if (name.getText().trim().isEmpty()) {
+        if (StringUtils.isEmpty(name.getText())) {
             reactionLabel.setText("Enter the user name.");
             return;
         }
@@ -113,7 +124,7 @@ public class InitiateFrame  extends JFrame {
             reactionLabel.setText("<html>   User name could not be longer<br>then 15 signs.</html>");
             return;
         }
-        if (password.getText().trim().isEmpty()) {
+        if(StringUtils.isEmpty(password.getText())){
             reactionLabel.setText("Enter the password.");
             return;
         }
@@ -122,48 +133,88 @@ public class InitiateFrame  extends JFrame {
             return;
         }
 
-        String response="";
+        try {
+            InetAddress adress = InetAddress.getByName(host);
+            socketClient = new Socket(adress, port);
+
             try {
-                response=socketClient.goOnSocketCient(command,name.getText(),password.getText());
+                response=startClient(socketClient,command,name.getText(),password.getText());
             } catch (IOException e) {
-                reactionLabel.setText("Could not connect to server");
-            } catch (InterruptedException e) {
+                socketClient.close();
+                log.info(e);
                 reactionLabel.setText("Could not connect to server");
             }
 
-        if (response.equals("upset")){
-            reactionLabel.setText("Don't have response from server");
-            return;
-        }
+            if (response.equals("upset")){
+                socketClient.close();
+                log.info(" BufferedReader is never ready.");
+                reactionLabel.setText("Don't have response from server");
+                return;
+            }
 
-        switch (command){
-            case "registration" ->{
-                switch (response){
-                    case "OK" ->{
-                        reactionLabel.setText("The registration has been a success.");
+            switch (command){
+                case "registration" ->{
+                    switch (response){
+                        case "OK" ->{
+                            reactionLabel.setText("The registration has been a success.");
+                        }
+                        case "BUSY" ->{
+                            reactionLabel.setText("User name is occupied ");
+                        }
                     }
-                    case "NO" ->{
-                        reactionLabel.setText("User name is occupied ");
+                    socketClient.close();
+                }
+                case "in account" ->{
+                    switch (response){
+                        case "OK" ->{
+// close window start
+                            setVisible(false);
+                            dispose();
+                            System.exit(0);
+// launch window chatting
+                            EventQueue.invokeLater(() -> {
+                                new ChatFrame(socketClient);
+                            });
+                        }
+                        case "NoUser" ->{
+                            reactionLabel.setText("User name don't have a registration.");
+                            socketClient.close();
+                        }
+                        case "NoPassword" ->{
+                            reactionLabel.setText("Wrong password.");
+                            socketClient.close();
+                        }
+                        case "BUSY" ->{
+                            reactionLabel.setText("User name is used at this time. ");
+                            socketClient.close();
+                        }
                     }
                 }
             }
-            case "in account" ->{
-                switch (response){
-                    case "OK" ->{
-                        setVisible(false);
-                        dispose();
-                        System.exit(0);
 
-                        EventQueue.invokeLater(() -> {
-                            new ChatFrame();
-                        });
-                    }
-                    case "NO" ->{
-                        reactionLabel.setText("User name is used at this time. ");
-                    }
-                }
+        }  catch (IOException e) {
+            reactionLabel.setText("Could not connect to server");
+            log.error(e);
+        }
+    }
+
+
+     String startClient (Socket s, String command, String userName, String password) throws IOException {
+        String response= "upset";
+
+        try (   BufferedReader brNet = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                PrintWriter outNet = new PrintWriter(s.getOutputStream(), true)
+        ){
+            outNet.println("command:"+command);
+            outNet.println("user:"+userName);
+            outNet.println("message"+password);
+            outNet.flush();
+
+            s.setSoTimeout(10000);
+            if (brNet.ready()) {
+                response=brNet.readLine().trim();
             }
         }
-
+        return response;
     }
 }

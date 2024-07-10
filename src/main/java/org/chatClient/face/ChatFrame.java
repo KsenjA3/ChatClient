@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.chatClient.fittings.MySizePanel;
 
 import java.awt.*;
+import java.net.Socket;
 
 /** In this program organize GUI for chat.
  * In JFrame are situated two JPanels:
@@ -17,8 +18,15 @@ public class ChatFrame extends JFrame{
 
     PanelCorrespondence panelCorrespondence;
     PanelMessage panelMessage;
-    public ChatFrame(){
+    Socket socketClient;
+
+    public ChatFrame(Socket s){
+        this.socketClient=s;
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        закрыть в конце
+//        socketClient.close();
+
         setLocation(WINDOW_POS_X, WINDOW_POS_Y);
         setSize(MySizePanel.WIDTH_SIZE_WINDOW.getSize(), MySizePanel.HEIGHT_SIZE_WINDOW.getSize());
         setTitle("CHAT");
