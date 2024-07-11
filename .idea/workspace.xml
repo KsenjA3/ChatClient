@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41e66615-ac01-4a80-b642-f24d699f388d" name="Changes" comment="init" />
+    <list default="true" id="41e66615-ac01-4a80-b642-f24d699f388d" name="Changes" comment="StartFrame">
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/chatClient/face/StartFrameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/MainChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/MainChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/face/StartFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/face/StartFrame.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,6 +20,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -43,19 +49,39 @@
     "Application.Example.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.MainInit.executor": "Run",
+    "Application.MainStart.executor": "Run",
+    "JUnit.StartFrameTest.executor": "Run",
+    "JUnit.StartFrameTest.f1.executor": "Run",
+    "JUnit.StartFrameTest.password_null.executor": "Run",
+    "JUnit.StartFrameTest.password_too_long.executor": "Run",
+    "JUnit.StartFrameTest.responseFromServer.executor": "Run",
+    "JUnit.StartFrameTest.responseFromServer_IN.executor": "Run",
+    "JUnit.StartFrameTest.responseFromServer_upset.executor": "Run",
+    "JUnit.StartFrameTest.userName_null.executor": "Run",
+    "JUnit.StartFrameTest.userName_too_long.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/JavaProjects/ChatClient",
+    "last_opened_file_path": "D:/JavaProjects/ChatServ",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="Example" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.chatClient.Example" />
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.chatClient.face" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.MainStart">
+    <configuration name="MainStart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.chatClient.MainStart" />
       <module name="ChatClient" />
       <extension name="coverage">
         <pattern>
@@ -67,37 +93,76 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.chatClient.Main" />
+    <configuration name="StartFrameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatClient" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.chatClient.*" />
+          <option name="PATTERN" value="org.chatClient.face.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="org.chatClient.face" />
+      <option name="MAIN_CLASS_NAME" value="org.chatClient.face.StartFrameTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainInit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.chatClient.MainInit" />
+    <configuration name="StartFrameTest.password_too_long" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ChatClient" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.chatClient.*" />
+          <option name="PATTERN" value="org.chatClient.face.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="org.chatClient.face" />
+      <option name="MAIN_CLASS_NAME" value="org.chatClient.face.StartFrameTest" />
+      <option name="METHOD_NAME" value="password_too_long" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StartFrameTest.responseFromServer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatClient" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.chatClient.face.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.chatClient.face" />
+      <option name="MAIN_CLASS_NAME" value="org.chatClient.face.StartFrameTest" />
+      <option name="METHOD_NAME" value="responseFromServer(java.lang.String,java.lang.String,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StartFrameTest.responseFromServer_IN" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ChatClient" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.chatClient.face.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.chatClient.face" />
+      <option name="MAIN_CLASS_NAME" value="org.chatClient.face.StartFrameTest" />
+      <option name="METHOD_NAME" value="responseFromServer_IN" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.MainInit" />
-        <item itemvalue="Application.Example" />
+        <item itemvalue="Application.MainStart" />
+        <item itemvalue="JUnit.StartFrameTest.responseFromServer_IN" />
+        <item itemvalue="JUnit.StartFrameTest" />
+        <item itemvalue="JUnit.StartFrameTest.responseFromServer" />
+        <item itemvalue="JUnit.StartFrameTest.password_too_long" />
       </list>
     </recent_temporary>
   </component>
@@ -148,6 +213,24 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/InitiateFrame.java</url>
           <line>85</line>
           <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/StartFrame.java</url>
+          <line>220</line>
+          <properties class="org.chatClient.face.StartFrame" method="check_client_input">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/StartFrame.java</url>
+          <line>168</line>
+          <properties class="org.chatClient.face.StartFrame" method="reaction_for_response_from_server">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
