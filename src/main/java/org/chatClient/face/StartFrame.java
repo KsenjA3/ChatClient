@@ -35,7 +35,8 @@ public class StartFrame extends JFrame {
     static final  int port = 8189;
 
 
-    private JTextField userName, password;
+    private JTextField userName;
+    JPasswordField password;
     private JLabel reactionLabel;
 
     public StartFrame(){
@@ -56,7 +57,7 @@ public class StartFrame extends JFrame {
 
         var passwordLabel = new JLabel("Password");
             passwordLabel.setFont(MyFonts.FONT_LABEL.getFont());
-        password = new JTextField(15);
+        password = new JPasswordField(15);
             password.setFont(MyFonts.FONT_PASSWORD.getFont());
 
         var buttonIn = new JButton("In account");
@@ -120,7 +121,8 @@ public class StartFrame extends JFrame {
        String response="";
        Socket socketClient;
 
-       check_client_input ();
+       boolean mistakeInput =check_client_input ();
+       if (mistakeInput) return;
 
         try {
             InetAddress adress = InetAddress.getByName(host);
@@ -208,23 +210,24 @@ public class StartFrame extends JFrame {
 
     }
 
-    void check_client_input (){
+    boolean check_client_input (){
         if (StringUtils.isEmpty(userName.getText())) {
             reactionLabel.setText("Enter the user userName.");
-            return;
+            return true;
         }
         if (userName.getText().length()>15) {
             reactionLabel.setText("<html>   User name could not be longer<br>then 15 signs.</html>");
-            return;
+            return true;
         }
         if(StringUtils.isEmpty(password.getText())){
             reactionLabel.setText("Enter the password.");
-            return;
+            return true;
         }
         if (password.getText().length()>15) {
             reactionLabel.setText("<html>Password could not be longer<br>then 15 signs.</html>");
-            return;
+            return true;
         }
 
+        return false;
     }
 }
