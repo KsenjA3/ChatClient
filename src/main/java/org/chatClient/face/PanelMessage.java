@@ -16,13 +16,12 @@ class PanelMessage extends JPanel {
     private JButton buttonSend;
 
     private JTextArea textAreaMessage;
-//    private JTextPane paneMessage;
+    private JPanel panelMessage;
+    private JComboBox< String> receiver;
 
     private  JScrollPane scrollMessage;
 
     PanelMessage(PanelCorrespondence panel, JFrame frame){
-
-
 
         buttonSend = new JButton("Send");
         buttonSend.addActionListener(new ActionListener() {
@@ -34,32 +33,34 @@ class PanelMessage extends JPanel {
             }
         });
 
-        textAreaMessage= new JTextArea(8, 21);
+        textAreaMessage= new JTextArea(7, 21);
         textAreaMessage.setBackground(MyColors.COLOR_AREA_MESSAGE_BACKGROUND.getColor());
         textAreaMessage.setFont(MyFonts.FONT_AREA.getFont());
         textAreaMessage.setLineWrap(true);
         textAreaMessage.setWrapStyleWord(true);
-//        textAreaMessage.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-//        textAreaMessage.setSize(MySizePanel.WIDTH_SIZE_AREA_MESSAGE.getSize(),MySizePanel.HEIGHT_SIZE_AREA_MESSAGE.getSize());
-
-
-//        paneMessage = new JTextPane();
-//        var textLogAttributes = new SimpleAttributeSet();
-//        StyleConstants.setAlignment(textLogAttributes, StyleConstants.ALIGN_LEFT);
-//        StyleConstants.setFontFamily(textLogAttributes, MyFontNames.FRONT_NAME_MESSAGE.getFontName());
-//        StyleConstants.setFontSize(textLogAttributes, MyFontSizes.FRONT_SIZE_MESSAGE.getFontSize() );
-//        StyleConstants.setForeground(textLogAttributes, MyColors.COLOR_PANEL_MESSAGE_FOREGROUND.getColor());
-//        paneMessage.setParagraphAttributes(textLogAttributes, true);
-//        paneMessage.setSize(MySizePanel.WIDTH_SIZE_AREA_MESSAGE.getSize(),MySizePanel.HEIGHT_SIZE_AREA_MESSAGE.getSize());
 
         scrollMessage = new JScrollPane (textAreaMessage,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
+        receiver=new JComboBox<>();
+        receiver.addItem("to all");
+        receiver.addItem("to all online");
+
+//        for (int i = 0; i < ; i++) {
+//            String str = ;
+//            receiver.addItem(str);
+//        }
+
+        panelMessage= new JPanel(new BorderLayout());
+        panelMessage.add(receiver, BorderLayout.NORTH);
+        panelMessage.add(scrollMessage, BorderLayout.SOUTH);
+
+
+        add(panelMessage, BorderLayout.WEST);
+        add(buttonSend,BorderLayout.EAST);
 
         setSize(MySizePanel.WIDTH_SIZE_PANEL_MESSAGE.getSize(),MySizePanel.HEIGHT_SIZE_PANEL_MESSAGE.getSize());
-        add(scrollMessage, BorderLayout.WEST);
-        add(buttonSend,BorderLayout.EAST);
     }
 
     String getMessage (){

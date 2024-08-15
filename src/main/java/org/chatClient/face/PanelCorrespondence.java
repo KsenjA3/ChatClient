@@ -6,39 +6,61 @@ import org.chatClient.fittings.MyFonts;
 import org.chatClient.fittings.MySizePanel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 
 /** In this program organize GUI for chat.
  *  JPanel for receiving  messages.
  * */
-class PanelCorrespondence extends JPanel {
+class  PanelCorrespondence extends JPanel {
     @Getter
     JScrollPane scrollCorrespondence;
 
-    private final JLabel labelCorrespondence;
-    private final StringBuffer allTextCorrespondence;
+    private  JLabel labelSender;
+    private  StringBuffer allTextCorrespondence;
     JPanel panel;
+    JTextArea txtCorrespondence;
 
     PanelCorrespondence() {
-        allTextCorrespondence= new StringBuffer();
-        labelCorrespondence= new JLabel();
+//        allTextCorrespondence= new StringBuffer();
+
 
         panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-
+        panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
         scrollCorrespondence = new JScrollPane (panel,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollCorrespondence.setBorder(null);
+        scrollCorrespondence.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scrollCorrespondence.setSize(MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize(),
+                MySizePanel.HEIGHT_SIZE_PANEL_CORRESPONDENCE.getSize());
+
+        String sender = " somebody";
+        String message = "text text text text text text text text text text text text text text" +
+                "text text text text text text text text text text text text text text text text  --  ";
 
         for (int i =1; i<20; i++){
-            var lab = new JLabel("text from somebody text from somebody text from somebody" +i+ "\n");
-            lab.setFont(MyFonts.FONT_LABEL.getFont());
-            lab.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
-            lab.setAlignmentX(Component.LEFT_ALIGNMENT);
-            panel.add(lab);
+            JPanel panelLabel = new JPanel(new BorderLayout());
+            panelLabel.setSize(MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize(),
+                    MySizePanel.HEIGHT_SIZE_PANEL_CORRESPONDENCE.getSize());
+
+            labelSender= new JLabel();
+            labelSender.setFont(MyFonts.FONT_LABEL_SENDER_CORRESPONDENCE.getFont());
+            labelSender.setBackground(MyColors.COLOR_LABEL_SENDER_CORRESPONDENCE_BACKGROUND.getColor());
+            labelSender.setText(sender);
+
+            panelLabel.add(labelSender, BorderLayout.WEST);
+
+            txtCorrespondence = new JTextArea();
+            txtCorrespondence.setBackground(MyColors.COLOR_AREA_MESSAGE_BACKGROUND.getColor());
+            txtCorrespondence.setFont(MyFonts.FONT_LABEL.getFont());
+            txtCorrespondence.setLineWrap(true);
+            txtCorrespondence.setWrapStyleWord(true);
+            txtCorrespondence.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
+            txtCorrespondence.setText(message+ i);
+
+            panel.add(panelLabel);
+            panel.add(txtCorrespondence);
             panel.add(Box.createRigidArea(new Dimension(2, 8)));
         }
 
@@ -57,7 +79,7 @@ class PanelCorrespondence extends JPanel {
         allTextCorrespondence.append("/n");
         allTextCorrespondence.append("/n");
 
-        labelCorrespondence.setText(allTextCorrespondence.toString());
+//        labelCorrespondence.setText(allTextCorrespondence.toString());
     }
 
 

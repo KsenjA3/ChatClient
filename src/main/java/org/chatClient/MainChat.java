@@ -14,17 +14,17 @@ public class MainChat {
     static final  int port = 8189;
 
     public static void main(String[] args)  {
-        try {
-
-            InetAddress adress = InetAddress.getByName(host);
-            Socket socketClient = new Socket(adress, port);
-            EventQueue.invokeLater(() -> {
-
-                new ChatFrame(socketClient);
-            });
-        } catch (IOException e) {
-            log.error(e);
-        }
+//        try {
+//
+//            InetAddress adress = InetAddress.getByName(host);
+//            Socket socketClient = new Socket(adress, port);
+//            EventQueue.invokeLater(() -> {
+//
+//                new ChatFrame(socketClient);
+//            });
+//        } catch (IOException e) {
+//            log.error(e);
+//        }
 
     }
 }
