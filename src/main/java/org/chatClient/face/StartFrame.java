@@ -140,10 +140,6 @@ public class StartFrame extends JFrame {
     @SneakyThrows(InterruptedException.class)
      String startClient (Socket s, String command, String userName, String password) throws IOException {
         String response= "upset";
-//        try (   BufferedReader brNet = new BufferedReader(new InputStreamReader(s.getInputStream()));
-//                PrintWriter outNet = new PrintWriter(s.getOutputStream(), true)
-//        ){
-
 
         BufferedReader brNet;
         PrintWriter outNet;
@@ -153,7 +149,7 @@ public class StartFrame extends JFrame {
 
             outNet.println("command:"+command);
             outNet.println("user:"+userName);
-            outNet.println("message"+password);
+            outNet.println("message:"+password);
             outNet.flush();
 
             s.setSoTimeout(1000000000);

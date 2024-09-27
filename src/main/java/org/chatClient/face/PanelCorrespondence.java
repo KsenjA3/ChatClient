@@ -15,16 +15,16 @@ import java.awt.*;
 class  PanelCorrespondence extends JPanel {
     @Getter
     JScrollPane scrollCorrespondence;
-
+    JFrame frame;
     private  JLabel labelSender;
     private  StringBuffer allTextCorrespondence;
     JPanel panel;
     JTextArea txtCorrespondence;
 
-    PanelCorrespondence() {
+    PanelCorrespondence(ChatFrame chatFrame) {
 //        allTextCorrespondence= new StringBuffer();
 
-
+        frame=chatFrame.frame;
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
         scrollCorrespondence = new JScrollPane (panel,
