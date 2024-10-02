@@ -19,6 +19,8 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import static java.lang.Thread.sleep;
+
 
 /** In this program organize GUI for initiation
  * for entering and registration users in chat.
@@ -150,7 +152,6 @@ public class StartFrame extends JFrame {
             outNet.println("command:"+command);
             outNet.println("user:"+userName);
             outNet.println("message:"+password);
-            outNet.flush();
 
             s.setSoTimeout(1000000000);
             Thread.sleep(100);

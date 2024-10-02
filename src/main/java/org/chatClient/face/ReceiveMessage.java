@@ -19,22 +19,21 @@ public class ReceiveMessage implements Runnable{
     private Socket socket;
     private String userName;
     private JFrame frame;
-    private PrintWriter outNet;
-    private boolean done;
     private ChatFrame chatFrame;
+
+    private boolean done;
 
     ReceiveMessage( ChatFrame chatFrame){
         this.chatFrame=chatFrame;
         frame=chatFrame.frame;
         socket=chatFrame.getSocketClient();
         userName=chatFrame.getNameUser();
-
     }
 
     public void run() {
-
-        System.out.println("ReceiveMessage.run"  +socket);
+        log.info("ReceiveMessage.run - {} " ,socket);
         String line, command, user = "", message = "", receiver = "";
+
         try {
             InputStream inStream = socket.getInputStream();
             BufferedReader brNet = new BufferedReader(new InputStreamReader(inStream));
@@ -66,9 +65,10 @@ public class ReceiveMessage implements Runnable{
                             }
                         }
                     } else continue;
-                    System.out.println("111-"+command);
-                    System.out.println("222-"+user);
-                    System.out.println("333-"+message);
+                    System.out.println("!!!ReceiveMessage:");
+                    System.out.println("1command- "+command);
+                    System.out.println("2user- "+user);
+                    System.out.println("3message- "+message);
                     react_for_message ( command,  user,  message);
 
                 }
@@ -87,7 +87,6 @@ public class ReceiveMessage implements Runnable{
 
         if (!StringUtils.isEmpty(user) && !StringUtils.isEmpty(message)) {
             switch (command){
-
                 case "chatting"->{
 
                 }
@@ -96,7 +95,7 @@ public class ReceiveMessage implements Runnable{
                         ObjectMapper mapper = new ObjectMapper();
                         TreeMap<String, Boolean> mapClient=  mapper.readValue(message, new TypeReference<TreeMap<String, Boolean>>() {});
                         chatFrame.getPanelMessage().setReferenceBook(mapClient);
-                        log.info("{} -set  reference Book Client " ,mapClient);
+
 
                         //метод прописать справочник в PanelMessage
                         chatFrame.getPanelMessage().getPanelMessage().remove( chatFrame.getPanelMessage().getReceiver());
@@ -111,7 +110,6 @@ public class ReceiveMessage implements Runnable{
                 }
                 case "exit"->{
                     done=false;
-
                 }
 
             }
@@ -119,18 +117,5 @@ public class ReceiveMessage implements Runnable{
     }
 
 
-//    HashMap<String, Boolean>  referenceBook_from_JSON (String bookJSON){
-//        ObjectMapper mapper = new ObjectMapper();
-//        // Converting JSON  to a map
-//        try {
-//            referenceBook=mapper.readValue(bookJSON,HashMap.class);
-//
-//            log.info("{} - reference Book " ,referenceBook);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        return referenceBook;
-//    }
+
 }

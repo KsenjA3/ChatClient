@@ -21,33 +21,38 @@ import java.util.TreeMap;
 @Log4j2
 class PanelMessage extends JPanel {
     @Getter
-    @Setter
     private TreeMap<String, Boolean> referenceBook;
     @Getter
     private JComboBox< String> receiver;
     @Getter
     private JPanel panelMessage;
-
-    private JFrame frame;
-    private PanelCorrespondence panelCorrespondence;
-    private String txt;
-    private JButton buttonSend;
+    @Getter
     private JTextArea textAreaMessage;
 
-    private  JScrollPane scrollMessage;
+    private String nameUser;
+    private SendMessage sendMessage;
+    private JFrame frame;
+    private PanelCorrespondence panelCorrespondence;
+    private JButton buttonSend;
+    private JScrollPane scrollMessage;
+    private String contentMessage, receiverOfMessage;
 
     PanelMessage( ChatFrame chatFrame){
-       frame=chatFrame.frame;
+        frame=chatFrame.frame;
+        nameUser= chatFrame.getNameUser();
         panelCorrespondence=chatFrame.getPanelCorrespondence();
-       referenceBook= new TreeMap<>();
-
+        referenceBook= new TreeMap<>();
+        sendMessage =new SendMessage(chatFrame);
 
         buttonSend = new JButton("Send");
         buttonSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                txt= getMessage();
-                panelCorrespondence.getScrollCorrespondence().add(new JLabel(txt));
+                contentMessage= getMessage();
+                receiverOfMessage=getSelectReceiver();
+                sendMessage.sendMes(receiverOfMessage,contentMessage);
+                textAreaMessage.setText("");
+//                panelCorrespondence.getScrollCorrespondence().add(new JLabel(txt));
                frame.pack();
             }
         });
@@ -74,15 +79,28 @@ class PanelMessage extends JPanel {
         setSize(MySizePanel.WIDTH_SIZE_PANEL_MESSAGE.getSize(),MySizePanel.HEIGHT_SIZE_PANEL_MESSAGE.getSize());
     }
 
-    String getMessage (){
+    public void setReferenceBook(TreeMap<String, Boolean> refBook) {
+
+        refBook.forEach((user,online)->{
+            if (!user.equals(nameUser)) {
+                referenceBook.put(user, online);
+            }
+        });
+
+    }
+
+    protected String getMessage (){
         return textAreaMessage.getText();
     }
+
+    protected String getSelectReceiver () {return  receiver.getItemAt(receiver.getSelectedIndex()); }
 
     void fill_receiverBook() {
         receiver=new JComboBox<>();
         receiver.addItem("to all");
-        receiver.addItem("to all online");
-        System.out.println("!!!"+referenceBook);
+//        receiver.addItem("to all online");
+
+        log.info("!!!{} -set  reference Book Client " ,referenceBook);
         referenceBook.forEach((user,online)->{
             String str ;
             if (online){
