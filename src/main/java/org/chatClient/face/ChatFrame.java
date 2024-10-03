@@ -68,6 +68,7 @@ public class ChatFrame {
 
 
         frame.setLocation(WINDOW_POS_X, WINDOW_POS_Y);
+        frame.setPreferredSize(new Dimension(MySizePanel.WIDTH_SIZE_WINDOW.getSize(), MySizePanel.HEIGHT_SIZE_WINDOW.getSize()));
         frame.setSize(MySizePanel.WIDTH_SIZE_WINDOW.getSize(), MySizePanel.HEIGHT_SIZE_WINDOW.getSize());
         frame.setTitle("CHAT");
         panelCorrespondence = new PanelCorrespondence(this);

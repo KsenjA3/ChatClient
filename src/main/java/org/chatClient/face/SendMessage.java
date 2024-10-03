@@ -21,15 +21,15 @@ public class SendMessage {
         userName=chatFrame.getNameUser();
 
     }
-    void sendMes (String toUser, String message)  {
+    void sendMes (String command, String message)  {
 
-        toUser= StringUtils.remove(toUser,"(online)").trim();
+
         try{
 //            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 //            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            out.println("command:chattingTo:"+ toUser);
+            out.println("command:"+ command);
             out.println("user:"+userName);
             String str = "message:"+ message.replaceAll("\n", "<br>");;
             out.println(str);

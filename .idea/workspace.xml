@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41e66615-ac01-4a80-b642-f24d699f388d" name="Changes" comment="send_message">
+    <list default="true" id="41e66615-ac01-4a80-b642-f24d699f388d" name="Changes" comment="Panel_Correspondence">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/face/ChatFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/face/ChatFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/face/ReceiveMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/face/ReceiveMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/face/StartFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/face/StartFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MyColors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MyColors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MyFontNames.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MyFontSizes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MyFontSizes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MyFonts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MyFonts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MySizePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/fittings/MySizePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/chatClient/face/SendMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/chatClient/face/SendMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727897937653</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Panel_Correspondence">
+      <option name="closed" value="true" />
+      <created>1727949857683</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1727949857683</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -239,7 +241,8 @@
     <MESSAGE value="ChatingFrame" />
     <MESSAGE value="receive_referenceBook" />
     <MESSAGE value="send_message" />
-    <option name="LAST_COMMIT_MESSAGE" value="send_message" />
+    <MESSAGE value="Panel_Correspondence" />
+    <option name="LAST_COMMIT_MESSAGE" value="Panel_Correspondence" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -261,7 +264,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>145</line>
+          <line>169</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -271,27 +274,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/ChatFrame.java</url>
-          <line>75</line>
+          <line>76</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/ReceiveMessage.java</url>
-          <line>69</line>
+          <line>70</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/ReceiveMessage.java</url>
-          <line>70</line>
+          <line>71</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/ReceiveMessage.java</url>
-          <line>67</line>
+          <line>68</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/ReceiveMessage.java</url>
-          <line>68</line>
+          <line>69</line>
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -341,62 +344,77 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>150</line>
+          <line>174</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>146</line>
+          <line>170</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>147</line>
+          <line>171</line>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>148</line>
+          <line>172</line>
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>149</line>
+          <line>173</line>
           <option name="timeStamp" value="101" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/ReceiveMessage.java</url>
-          <line>96</line>
+          <line>95</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>63</line>
+          <line>68</line>
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>183</line>
+          <line>207</line>
           <option name="timeStamp" value="135" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>47</line>
+          <line>52</line>
           <option name="timeStamp" value="139" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>67</line>
-          <option name="timeStamp" value="141" />
+          <line>84</line>
+          <option name="timeStamp" value="142" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="142" />
+          <line>85</line>
+          <option name="timeStamp" value="143" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelMessage.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="145" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelMessage.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="146" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
+          <line>247</line>
+          <option name="timeStamp" value="149" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/PanelCorrespondence.java</url>
-          <line>153</line>
+          <line>177</line>
           <properties class="org.chatClient.face.PanelCorrespondence" method="setLabelCorrespondence">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -405,7 +423,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/org/chatClient/face/ChatFrame.java</url>
-          <line>90</line>
+          <line>91</line>
           <properties class="org.chatClient.face.ChatFrame" method="repack">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

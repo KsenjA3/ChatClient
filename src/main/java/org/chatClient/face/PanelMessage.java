@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.chatClient.fittings.*;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ class PanelMessage extends JPanel {
     @Getter
     private JPanel panelMessage;
     @Getter
+    @Setter
     private JTextArea textAreaMessage;
 
     private String nameUser;
@@ -49,8 +51,10 @@ class PanelMessage extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     contentMessage= getMessage();
-                    receiverOfMessage=getSelectReceiver();
-                    sendMessage.sendMes(receiverOfMessage,contentMessage);
+                    String receiverOfMessage=getSelectReceiver();
+                    receiverOfMessage= StringUtils.remove(receiverOfMessage,"(online)").trim();
+                    String commandMessage = "chattingTo:"+ receiverOfMessage;
+                    sendMessage.sendMes(commandMessage,contentMessage);
                     textAreaMessage.setText("");
     //                panelCorrespondence.getScrollCorrespondence().add(new JLabel(txt));
                    frame.pack();

@@ -2,12 +2,15 @@ package org.chatClient.face;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.chatClient.fittings.MyColors;
 import org.chatClient.fittings.MyFonts;
 import org.chatClient.fittings.MySizePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 /** In this program organize GUI for chat.
@@ -17,6 +20,7 @@ import java.awt.*;
 class  PanelCorrespondence extends JPanel {
     private JFrame frame;
     private ChatFrame chatFrame;
+    private SendMessage sendMessage;
     @Getter
     private JScrollPane scrollCorrespondence;
     private JPanel panel_oneMessage_inScroll;
@@ -37,6 +41,7 @@ class  PanelCorrespondence extends JPanel {
     PanelCorrespondence(ChatFrame chatFrame) {
         this.chatFrame=chatFrame;
         frame=chatFrame.frame;
+        sendMessage = new SendMessage(chatFrame);
 
     //панель с сообщениями
         panel_oneMessage_inScroll = new JPanel();
@@ -66,14 +71,30 @@ class  PanelCorrespondence extends JPanel {
             buttonRequestCorrespondence.setFont(MyFonts.FONT_BUTTON_CORRESPONDENCE.getFont());
             buttonRequestCorrespondence.setPreferredSize(new Dimension(70,30));
             colorButton= buttonRequestCorrespondence.getBackground();
+        buttonRequestCorrespondence.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                send_request_correspondence ();
+            }
+        });
 
         buttonNewMessage= new JButton("New");
             buttonNewMessage.setText("<html><center>"+"New"+"<br>"+"Messages"+"</center></html>");
             buttonNewMessage.setFont(MyFonts.FONT_BUTTON_CORRESPONDENCE.getFont());
             buttonNewMessage.setPreferredSize(new Dimension(80,80));
             buttonNewMessage.setBackground(MyColors.COLOR_NEW_MESSAGES.getColor());
-            buttonNewMessage.setBackground(colorButton);
-
+//            buttonNewMessage.setBackground(colorButton);
+        buttonNewMessage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                typeMessageComboBox.setSelectedItem("unread");
+                periodComboBox.setSelectedItem("all");
+                personComboBox.setSelectedItem("all");
+                buttonNewMessage.setBackground(colorButton);
+                send_request_correspondence ();
+                frame.pack();
+            }
+        });
         typeMessageLabel = new JLabel("Messages:");
             typeMessageLabel.setSize(90,20);
             typeMessageLabel.setFont(MyFonts.FONT_LABEL_CORRESPONDENCE.getFont());
@@ -209,5 +230,18 @@ class  PanelCorrespondence extends JPanel {
 
         paneRequestCorrespondence.add(personComboBox);
 
+    }
+
+
+    private void send_request_correspondence (){
+        String type = typeMessageComboBox.getItemAt(typeMessageComboBox.getSelectedIndex());
+        String period = periodComboBox.getItemAt(periodComboBox.getSelectedIndex());
+        String person = personComboBox.getItemAt(personComboBox.getSelectedIndex());
+        String contentMessage= "type:<"+type+">period:<"+period+">person:"+person;
+
+        String commandMessage = "request_correspondence";
+        sendMessage.sendMes(commandMessage,contentMessage);
+
+        System.out.println(contentMessage);
     }
 }
