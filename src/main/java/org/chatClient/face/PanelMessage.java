@@ -20,8 +20,7 @@ import java.util.TreeMap;
  * */
 @Log4j2
 class PanelMessage extends JPanel {
-    @Getter
-    private TreeMap<String, Boolean> referenceBook;
+    ChatFrame chatFrame;
     @Getter
     private JComboBox< String> receiver;
     @Getter
@@ -38,24 +37,25 @@ class PanelMessage extends JPanel {
     private String contentMessage, receiverOfMessage;
 
     PanelMessage( ChatFrame chatFrame){
+        this.chatFrame=chatFrame;
         frame=chatFrame.frame;
         nameUser= chatFrame.getNameUser();
         panelCorrespondence=chatFrame.getPanelCorrespondence();
-        referenceBook= new TreeMap<>();
         sendMessage =new SendMessage(chatFrame);
 
         buttonSend = new JButton("Send");
-        buttonSend.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                contentMessage= getMessage();
-                receiverOfMessage=getSelectReceiver();
-                sendMessage.sendMes(receiverOfMessage,contentMessage);
-                textAreaMessage.setText("");
-//                panelCorrespondence.getScrollCorrespondence().add(new JLabel(txt));
-               frame.pack();
-            }
-        });
+            buttonSend.setFont(MyFonts.FONT_BUTTON_CORRESPONDENCE.getFont());
+            buttonSend.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    contentMessage= getMessage();
+                    receiverOfMessage=getSelectReceiver();
+                    sendMessage.sendMes(receiverOfMessage,contentMessage);
+                    textAreaMessage.setText("");
+    //                panelCorrespondence.getScrollCorrespondence().add(new JLabel(txt));
+                   frame.pack();
+                }
+            });
 
         textAreaMessage= new JTextArea(7, 21);
         textAreaMessage.setBackground(MyColors.COLOR_AREA_MESSAGE_BACKGROUND.getColor());
@@ -68,26 +68,18 @@ class PanelMessage extends JPanel {
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         panelMessage= new JPanel(new BorderLayout());
-        panelMessage.add(scrollMessage, BorderLayout.SOUTH);
+            fill_receiverBook();
+            panelMessage.add(scrollMessage, BorderLayout.SOUTH);
 
-        referenceBook= new TreeMap<>();
-        fill_receiverBook();
 
         add(panelMessage, BorderLayout.WEST);
         add(buttonSend,BorderLayout.EAST);
 
-        setSize(MySizePanel.WIDTH_SIZE_PANEL_MESSAGE.getSize(),MySizePanel.HEIGHT_SIZE_PANEL_MESSAGE.getSize());
+        setSize(MySizePanel.WIDTH_SIZE_PANEL_MESSAGE.getSize(),
+                MySizePanel.HEIGHT_SIZE_PANEL_MESSAGE.getSize());
     }
 
-    public void setReferenceBook(TreeMap<String, Boolean> refBook) {
 
-        refBook.forEach((user,online)->{
-            if (!user.equals(nameUser)) {
-                referenceBook.put(user, online);
-            }
-        });
-
-    }
 
     protected String getMessage (){
         return textAreaMessage.getText();
@@ -97,11 +89,12 @@ class PanelMessage extends JPanel {
 
     void fill_receiverBook() {
         receiver=new JComboBox<>();
+        receiver.setFont(MyFonts.FONT_LIST_CORRESPONDENCE.getFont());
         receiver.addItem("to all");
 //        receiver.addItem("to all online");
 
-        log.info("!!!{} -set  reference Book Client " ,referenceBook);
-        referenceBook.forEach((user,online)->{
+        log.info("!!!{} -set  reference Book Client " ,chatFrame.getReferenceBook());
+        chatFrame.getReferenceBook().forEach((user,online)->{
             String str ;
             if (online){
                 str=user +" (online)";
@@ -111,17 +104,7 @@ class PanelMessage extends JPanel {
 
             receiver.addItem(str);
         });
-
         panelMessage.add(receiver, BorderLayout.NORTH);
-//                        TreeSet<String> referenceBookSet = new TreeSet<>();
-//                        mapClient.forEach((sub,online)->{
-//                            if (online){
-//                                String subscriber=sub+"(online)";
-//                                referenceBookSet.add(subscriber);
-//                            }else {
-//                                referenceBookSet.add(sub);
-//                            }
-//                        });
     }
 
 }

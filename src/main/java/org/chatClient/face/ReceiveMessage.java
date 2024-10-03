@@ -65,17 +65,16 @@ public class ReceiveMessage implements Runnable{
                             }
                         }
                     } else continue;
+
                     System.out.println("!!!ReceiveMessage:");
                     System.out.println("1command- "+command);
                     System.out.println("2user- "+user);
                     System.out.println("3message- "+message);
+
                     react_for_message ( command,  user,  message);
 
                 }
-
             }
-
-
         } catch (IOException e) {
             log.error(e);
             e.printStackTrace();
@@ -87,22 +86,28 @@ public class ReceiveMessage implements Runnable{
 
         if (!StringUtils.isEmpty(user) && !StringUtils.isEmpty(message)) {
             switch (command){
-                case "chatting"->{
+                case "chattingTo:"->{
 
                 }
                 case "referenceBook"->{
                     try {
                         ObjectMapper mapper = new ObjectMapper();
                         TreeMap<String, Boolean> mapClient=  mapper.readValue(message, new TypeReference<TreeMap<String, Boolean>>() {});
-                        chatFrame.getPanelMessage().setReferenceBook(mapClient);
+                        chatFrame.setReferenceBook(mapClient);
 
-
-                        //метод прописать справочник в PanelMessage
+                        //прописать справочник в PanelMessage
                         chatFrame.getPanelMessage().getPanelMessage().remove( chatFrame.getPanelMessage().getReceiver());
                         chatFrame.getPanelMessage().fill_receiverBook();
                         chatFrame.getPanelMessage().revalidate();
-                        chatFrame.getPanelMessage().repaint();
-                        chatFrame.frame.pack();
+//                        chatFrame.getPanelMessage().repaint();
+//                        chatFrame.frame.pack();
+
+                        //прописать справочник в PanelCorrespondence
+                        chatFrame.getPanelCorrespondence(). getPaneRequestCorrespondence()
+                                .remove(chatFrame.getPanelCorrespondence().getPersonComboBox());
+                        chatFrame.getPanelCorrespondence().fill_personComboBox();
+                        chatFrame.getPanelCorrespondence().revalidate();
+
 
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();

@@ -13,7 +13,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
-import java.util.concurrent.ConcurrentMap;
+import java.util.TreeMap;
+
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+
 
 /** In this program organize GUI for chat.
  * In JFrame are situated two JPanels:
@@ -34,14 +37,16 @@ public class ChatFrame {
     private Socket socketClient;
     @Getter
     private String nameUser;
+    @Getter
+    private TreeMap<String, Boolean> referenceBook;
 
     @SneakyThrows (InterruptedException.class)
     public ChatFrame(Socket s, String userName){
+        referenceBook= new TreeMap<>();
         socketClient=s;
         nameUser=userName;
         frame=new JFrame();
-
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @SneakyThrows
@@ -91,4 +96,12 @@ void repack(){
     frame.pack();
 }
 
+    public void setReferenceBook(TreeMap<String, Boolean> refBook) {
+        refBook.forEach((user,online)->{
+            if (!user.equals(nameUser)) {
+                referenceBook.put(user, online);
+            }
+        });
+
+    }
 }

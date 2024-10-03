@@ -15,7 +15,13 @@ public enum MyFonts {
     FONT_LABEL (new Font("Arial", Font.BOLD, MyFontSizes.FRONT_SIZE_LABEL.getFontSize())),
 
 
-    FONT_LABEL_SENDER_CORRESPONDENCE (new Font("Franklin Gothic Medium", Font.BOLD, 15));
+
+    FONT_LABEL_CORRESPONDENCE (new Font("Arial", Font.PLAIN, MyFontSizes.FRONT_SIZE_LABEL_CORRESPONDENCE.getFontSize())),
+    FONT_BUTTON_CORRESPONDENCE (new Font("Franklin Gothic Medium", Font.PLAIN, MyFontSizes.FRONT_SIZE_BUTTON_CORRESPONDENCE.getFontSize())),
+    FONT_LIST_CORRESPONDENCE (new Font("Arial", Font.PLAIN, MyFontSizes.FRONT_SIZE_LIST_CORRESPONDENCE.getFontSize())),
+
+    FONT_TEXT_CORRESPONDENCE (new Font("Arial", Font.PLAIN, MyFontSizes.FRONT_SIZE_TEXT_CORRESPONDENCE.getFontSize())),
+    FONT_LABEL_SENDER_CORRESPONDENCE (new Font("Franklin Gothic Medium", Font.PLAIN, MyFontSizes.FRONT_SIZE_LABEL_SENDER_CORRESPONDENCE.getFontSize()));
 
 
     private Font font;

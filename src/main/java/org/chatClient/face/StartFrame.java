@@ -154,7 +154,7 @@ public class StartFrame extends JFrame {
             outNet.println("message:"+password);
 
             s.setSoTimeout(1000000000);
-            Thread.sleep(100);
+            Thread.sleep(1000);
             if (brNet.ready()) {
                 response=brNet.readLine().trim();
             }
