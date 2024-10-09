@@ -96,9 +96,10 @@ public class ReceiveMessage implements Runnable{
                         chatFrame.setReferenceBook(mapClient);
 
                         //прописать справочник в PanelMessage
-                        chatFrame.getPanelMessage().getPanelMessage().remove( chatFrame.getPanelMessage().getReceiver());
+                        chatFrame.getPanelMessage().getPanelReceiver()
+                                .remove( chatFrame.getPanelMessage().getReceiverComboBox());
                         chatFrame.getPanelMessage().fill_receiverBook();
-                        chatFrame.getPanelMessage().revalidate();
+                        chatFrame.getPanelMessage().getPanelReceiver().revalidate();
 //                        chatFrame.getPanelMessage().repaint();
 //                        chatFrame.frame.pack();
 

@@ -60,9 +60,7 @@ class  PanelCorrespondence extends JPanel {
         paneRequestCorrespondence = new JPanel();
         layout= new SpringLayout();
         paneRequestCorrespondence.setLayout(layout);
-        paneRequestCorrespondence.setPreferredSize( new Dimension(
-                MySizePanel.WIDTH_SIZE_REQUEST_CORRESPONDENCE.getSize(),
-                MySizePanel.HEIGHT_SIZE_REQUEST_CORRESPONDENCE.getSize()));
+
 //        paneRequestCorrespondence.setBorder(BorderFactory.createLineBorder(Color.blue));
 
 
@@ -227,6 +225,14 @@ class  PanelCorrespondence extends JPanel {
 
         layout.putConstraint(SpringLayout.WEST , personComboBox, 100, SpringLayout.EAST , buttonNewMessage);
         layout.putConstraint(SpringLayout.NORTH , personComboBox, 40, SpringLayout.NORTH , paneRequestCorrespondence);
+
+        paneRequestCorrespondence.setPreferredSize( new Dimension(
+                MySizePanel.WIDTH_SIZE_REQUEST_CORRESPONDENCE.getSize(),
+                MySizePanel.HEIGHT_SIZE_REQUEST_CORRESPONDENCE.getSize()));
+
+        setPreferredSize( new Dimension(
+                MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize(),
+                MySizePanel.HEIGHT_SIZE_PANEL_CORRESPONDENCE.getSize()));
 
         paneRequestCorrespondence.add(personComboBox);
 

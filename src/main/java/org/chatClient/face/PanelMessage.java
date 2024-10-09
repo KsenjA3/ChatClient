@@ -23,7 +23,9 @@ import java.util.TreeMap;
 class PanelMessage extends JPanel {
     ChatFrame chatFrame;
     @Getter
-    private JComboBox< String> receiver;
+    private JComboBox< String> receiverComboBox;
+    @Getter
+    private JPanel panelReceiver;
     @Getter
     private JPanel panelMessage;
     @Getter
@@ -34,10 +36,12 @@ class PanelMessage extends JPanel {
     private SendMessage sendMessage;
     private JFrame frame;
     private PanelCorrespondence panelCorrespondence;
-    private JButton buttonSend;
-    private JScrollPane scrollMessage;
+    private JButton buttonSend, buttonMinus, buttonPlus;
+    private JLabel receiverList;
+    private JScrollPane scrollMessage, scrollReceiverList;
     private String contentMessage, receiverOfMessage;
-
+    private String reseiversString;
+    private SpringLayout layout;
     PanelMessage( ChatFrame chatFrame){
         this.chatFrame=chatFrame;
         frame=chatFrame.frame;
@@ -47,6 +51,7 @@ class PanelMessage extends JPanel {
 
         buttonSend = new JButton("Send");
             buttonSend.setFont(MyFonts.FONT_BUTTON_CORRESPONDENCE.getFont());
+            buttonSend.setSize(new Dimension(60,30));
             buttonSend.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -71,13 +76,78 @@ class PanelMessage extends JPanel {
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        panelMessage= new JPanel(new BorderLayout());
+
+        buttonPlus = new JButton("+");
+            buttonPlus.setFont(MyFonts.FONT_BUTTON_RECEIVER.getFont());
+
+//            buttonPlus.setBounds(1, 1, 150, 150);
+//            buttonPlus.setPreferredSize(new Dimension(20,20));
+            buttonPlus.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+
+                    frame.pack();
+                }
+            });
+        buttonMinus = new JButton("-");
+            buttonMinus.setFont(MyFonts.FONT_BUTTON_RECEIVER.getFont());
+
+//            buttonMinus.setPreferredSize(new Dimension(30,20));
+            buttonMinus.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+
+                    frame.pack();
+                }
+            });
+
+        receiverList = new JLabel();
+            receiverList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            receiverList.setFont(MyFonts.FONT_LIST_CORRESPONDENCE.getFont());
+        scrollReceiverList = new JScrollPane (receiverList,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            scrollReceiverList.setPreferredSize(new Dimension(MySizePanel.WIDTH_SIZE_PANEL_RECEIVER_COMBOBOX.getSize(),40));
+        receiverList.setText("<html>1111111111<br>222222222222<br>33333333333333<br>44444444444444<br>555555555555555<br>6666666666</html>");
+        panelReceiver= new JPanel(new BorderLayout());
+            layout= new SpringLayout();
+            panelReceiver.setLayout(layout);
+            panelReceiver.add(buttonMinus);
+            panelReceiver.add(buttonPlus);
+            panelReceiver.add(scrollReceiverList);
+
             fill_receiverBook();
-            panelMessage.add(scrollMessage, BorderLayout.SOUTH);
+        receiverComboBox.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    reseiversString=receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex());
+                }
+            });
 
 
-        add(panelMessage, BorderLayout.WEST);
-        add(buttonSend,BorderLayout.EAST);
+        layout.putConstraint(SpringLayout.WEST , scrollReceiverList, 20, SpringLayout.WEST , panelReceiver);
+        layout.putConstraint(SpringLayout.NORTH , scrollReceiverList, 10, SpringLayout.NORTH , panelReceiver);
+
+
+        layout.putConstraint(SpringLayout.WEST , buttonPlus, 30, SpringLayout.EAST , receiverComboBox);
+        layout.putConstraint(SpringLayout.NORTH , buttonPlus, 6, SpringLayout.SOUTH , scrollReceiverList);
+
+        layout.putConstraint(SpringLayout.WEST , buttonMinus, 10, SpringLayout.EAST , buttonPlus);
+        layout.putConstraint(SpringLayout.NORTH , buttonMinus, 6, SpringLayout.SOUTH , scrollReceiverList);
+
+
+        panelMessage= new JPanel(new FlowLayout(FlowLayout.CENTER));
+            panelMessage.add(scrollMessage);
+            panelMessage.add(buttonSend);
+        panelMessage.setSize(new Dimension(MySizePanel.WIDTH_SIZE_PANEL_SEND.getSize(),
+                MySizePanel.HEIGHT_SIZE_PANEL_SEND.getSize()));
+
+        setLayout(new BorderLayout());
+        add(panelReceiver,BorderLayout.NORTH);
+        add(panelMessage, BorderLayout.CENTER);
+
 
         setSize(MySizePanel.WIDTH_SIZE_PANEL_MESSAGE.getSize(),
                 MySizePanel.HEIGHT_SIZE_PANEL_MESSAGE.getSize());
@@ -89,12 +159,14 @@ class PanelMessage extends JPanel {
         return textAreaMessage.getText();
     }
 
-    protected String getSelectReceiver () {return  receiver.getItemAt(receiver.getSelectedIndex()); }
+    protected String getSelectReceiver () {return  receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex()); }
 
     void fill_receiverBook() {
-        receiver=new JComboBox<>();
-        receiver.setFont(MyFonts.FONT_LIST_CORRESPONDENCE.getFont());
-        receiver.addItem("to all");
+        receiverComboBox=new JComboBox<>();
+        receiverComboBox.setPreferredSize(new Dimension(MySizePanel.WIDTH_SIZE_PANEL_RECEIVER_COMBOBOX.getSize(),
+                                                        MySizePanel.HEIGHT_SIZE_PANEL_RECEIVER_COMBOBOX.getSize()));
+        receiverComboBox.setFont(MyFonts.FONT_LIST_CORRESPONDENCE.getFont());
+        receiverComboBox.addItem("to all");
 //        receiver.addItem("to all online");
 
         log.info("!!!{} -set  reference Book Client " ,chatFrame.getReferenceBook());
@@ -106,9 +178,19 @@ class PanelMessage extends JPanel {
                 str=user;
             }
 
-            receiver.addItem(str);
+            receiverComboBox.addItem(str);
         });
-        panelMessage.add(receiver, BorderLayout.NORTH);
+
+        panelReceiver.add(receiverComboBox);
+
+        layout.putConstraint(SpringLayout.WEST , receiverComboBox, 20, SpringLayout.WEST , panelReceiver);
+        layout.putConstraint(SpringLayout.NORTH , receiverComboBox, 6, SpringLayout.SOUTH , scrollReceiverList);
+
+        panelReceiver.setPreferredSize( new Dimension(
+                MySizePanel.WIDTH_SIZE_PANEL_RECEIVER.getSize(),
+                MySizePanel.HEIGHT_SIZE_PANEL_RECEIVER.getSize()));
+        setPreferredSize(new Dimension(MySizePanel.WIDTH_SIZE_PANEL_MESSAGE.getSize(),
+                MySizePanel.HEIGHT_SIZE_PANEL_MESSAGE.getSize()));
     }
 
 }
