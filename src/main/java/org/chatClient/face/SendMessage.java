@@ -29,6 +29,8 @@ public class SendMessage {
 //            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
+            System.out.println("command:"+ command);
+
             out.println("command:"+ command);
             out.println("user:"+userName);
             String str = "message:"+ message.replaceAll("\n", "<br>");;

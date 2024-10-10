@@ -56,13 +56,17 @@ class PanelMessage extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     contentMessage= getMessage();
-                    String receiverOfMessage=getSelectReceiver();
-                    receiverOfMessage= StringUtils.remove(receiverOfMessage,"(online)").trim();
+
+                    String receiverOfMessage=receiverList.getText();
+                    while (StringUtils.contains(receiverOfMessage,"(online)"))
+                        receiverOfMessage= StringUtils.remove(receiverOfMessage," (online)");
                     String commandMessage = "chattingTo:"+ receiverOfMessage;
+
                     sendMessage.sendMes(commandMessage,contentMessage);
+
                     textAreaMessage.setText("");
-    //                panelCorrespondence.getScrollCorrespondence().add(new JLabel(txt));
-                   frame.pack();
+                    receiverList.setText("");
+                    frame.pack();
                 }
             });
 
@@ -79,26 +83,57 @@ class PanelMessage extends JPanel {
 
         buttonPlus = new JButton("+");
             buttonPlus.setFont(MyFonts.FONT_BUTTON_RECEIVER.getFont());
-
 //            buttonPlus.setBounds(1, 1, 150, 150);
 //            buttonPlus.setPreferredSize(new Dimension(20,20));
             buttonPlus.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    reseiversString=receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex());
 
+                    if (reseiversString.equals("to all")){
+                        receiverList.setText("<html>to all</html>");
+                        frame.pack();
+                        return;
+                    }
 
+                    String txtLabel= receiverList.getText();
+
+                    if (txtLabel.equals("<html></html>")){
+                        receiverList.setText("<html>"+ reseiversString +"</html>");
+                        frame.pack();
+                        return;
+                    }
+                    txtLabel= StringUtils.remove(txtLabel,"<html>to all</html>");
+                    txtLabel= StringUtils.removeEnd(txtLabel,"</html>");
+
+                    if (StringUtils.startsWith(txtLabel,"<html>")){
+                        if (StringUtils.contains(txtLabel,reseiversString))     return;
+                        txtLabel= StringUtils.removeEnd(txtLabel,"<br>");
+                        txtLabel= txtLabel+"<br>"+reseiversString;
+                    }
+                    else {
+                        txtLabel="<html>"+reseiversString;
+                    }
+                    txtLabel=txtLabel+"</html>";
+
+                    receiverList.setText(txtLabel);
                     frame.pack();
                 }
             });
+
         buttonMinus = new JButton("-");
             buttonMinus.setFont(MyFonts.FONT_BUTTON_RECEIVER.getFont());
-
-//            buttonMinus.setPreferredSize(new Dimension(30,20));
             buttonMinus.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    reseiversString=receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex());
+                    String txtLabel= receiverList.getText();
 
+                    txtLabel= StringUtils.remove(txtLabel,reseiversString+"<br>").trim();
+                    txtLabel= StringUtils.remove(txtLabel,reseiversString);
 
+                    System.out.println("---"+txtLabel);
+                    receiverList.setText(txtLabel);
                     frame.pack();
                 }
             });
@@ -110,7 +145,7 @@ class PanelMessage extends JPanel {
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scrollReceiverList.setPreferredSize(new Dimension(MySizePanel.WIDTH_SIZE_PANEL_RECEIVER_COMBOBOX.getSize(),40));
-        receiverList.setText("<html>1111111111<br>222222222222<br>33333333333333<br>44444444444444<br>555555555555555<br>6666666666</html>");
+
         panelReceiver= new JPanel(new BorderLayout());
             layout= new SpringLayout();
             panelReceiver.setLayout(layout);
@@ -118,14 +153,7 @@ class PanelMessage extends JPanel {
             panelReceiver.add(buttonPlus);
             panelReceiver.add(scrollReceiverList);
 
-            fill_receiverBook();
-        receiverComboBox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    reseiversString=receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex());
-                }
-            });
-
+        fill_receiverBook();
 
         layout.putConstraint(SpringLayout.WEST , scrollReceiverList, 20, SpringLayout.WEST , panelReceiver);
         layout.putConstraint(SpringLayout.NORTH , scrollReceiverList, 10, SpringLayout.NORTH , panelReceiver);
@@ -148,7 +176,6 @@ class PanelMessage extends JPanel {
         add(panelReceiver,BorderLayout.NORTH);
         add(panelMessage, BorderLayout.CENTER);
 
-
         setSize(MySizePanel.WIDTH_SIZE_PANEL_MESSAGE.getSize(),
                 MySizePanel.HEIGHT_SIZE_PANEL_MESSAGE.getSize());
     }
@@ -159,7 +186,9 @@ class PanelMessage extends JPanel {
         return textAreaMessage.getText();
     }
 
-    protected String getSelectReceiver () {return  receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex()); }
+//    protected String getReceivers () {
+//        return  receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex());
+//    }
 
     void fill_receiverBook() {
         receiverComboBox=new JComboBox<>();
