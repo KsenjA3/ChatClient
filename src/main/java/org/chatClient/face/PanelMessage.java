@@ -218,9 +218,7 @@ class PanelMessage extends JPanel {
         return textAreaMessage.getText();
     }
 
-//    protected String getReceivers () {
-//        return  receiverComboBox.getItemAt(receiverComboBox.getSelectedIndex());
-//    }
+
 
     void fill_receiverBook() {
         receiverComboBox=new JComboBox<>();

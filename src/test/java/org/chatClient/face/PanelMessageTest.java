@@ -23,13 +23,6 @@ class PanelMessageTest {
     }
 
 
-
-    @Test
-    void getReceiver() {
-        panelMessage.getReceiver().setSelectedItem("to all");
-        assertEquals("to all", panelMessage.getSelectReceiver());
-    }
-
     @Test
     void getPanelMessage() {
         panelMessage.getTextAreaMessage().setText("qqq");

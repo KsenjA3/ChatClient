@@ -23,17 +23,20 @@ class  PanelCorrespondence extends JPanel {
     private SendMessage sendMessage;
     @Getter
     private JScrollPane scrollCorrespondence;
+    @Getter
+    private JPanel paneRequestCorrespondence;
+    @Getter
+    private JComboBox< String> periodComboBox, personComboBox, typeMessageComboBox;
+    @Getter
+    private JButton buttonNewMessage;
+    private JLabel periodLabel, personLabel, typeMessageLabel;
+    private JButton buttonRequestCorrespondence;
+    private Color colorButton;
+    private SpringLayout layout;
     private JPanel panel_oneMessage_inScroll;
     private JTextArea txtCorrespondence;
     private  JLabel labelSender;
-    @Getter
-    private JPanel paneRequestCorrespondence;
-    private SpringLayout layout;
-    @Getter
-    private JComboBox< String> periodComboBox, personComboBox, typeMessageComboBox;
-    private JLabel periodLabel, personLabel, typeMessageLabel;
-    private JButton buttonNewMessage, buttonRequestCorrespondence;
-    private Color colorButton;
+
 
     private  StringBuffer allTextCorrespondence;
 
@@ -60,9 +63,7 @@ class  PanelCorrespondence extends JPanel {
         paneRequestCorrespondence = new JPanel();
         layout= new SpringLayout();
         paneRequestCorrespondence.setLayout(layout);
-
 //        paneRequestCorrespondence.setBorder(BorderFactory.createLineBorder(Color.blue));
-
 
         buttonRequestCorrespondence= new JButton("Receive");
             buttonRequestCorrespondence.setText("<html><center>"+"Receive"+"</center></html>");
@@ -80,8 +81,7 @@ class  PanelCorrespondence extends JPanel {
             buttonNewMessage.setText("<html><center>"+"New"+"<br>"+"Messages"+"</center></html>");
             buttonNewMessage.setFont(MyFonts.FONT_BUTTON_CORRESPONDENCE.getFont());
             buttonNewMessage.setPreferredSize(new Dimension(80,80));
-            buttonNewMessage.setBackground(MyColors.COLOR_NEW_MESSAGES.getColor());
-//            buttonNewMessage.setBackground(colorButton);
+            buttonNewMessage.setBackground(colorButton);
         buttonNewMessage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

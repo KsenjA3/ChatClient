@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.chatClient.fittings.MyColors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,8 @@ public class ReceiveMessage implements Runnable{
     private String userName;
     private JFrame frame;
     private ChatFrame chatFrame;
-
+    private SendMessage sendMessage;
+    private PanelCorrespondence panelCorrespondence;
     private boolean done;
 
     ReceiveMessage( ChatFrame chatFrame){
@@ -28,6 +30,8 @@ public class ReceiveMessage implements Runnable{
         frame=chatFrame.frame;
         socket=chatFrame.getSocketClient();
         userName=chatFrame.getNameUser();
+        sendMessage= new SendMessage(chatFrame);
+        panelCorrespondence=new PanelCorrespondence(chatFrame);
     }
 
     public void run() {
@@ -72,7 +76,7 @@ public class ReceiveMessage implements Runnable{
                     System.out.println("3message- "+message);
 
                     react_for_message ( command,  user,  message);
-
+                    sendMessage.sendMes(command,  message);
                 }
             }
         } catch (IOException e) {
@@ -86,6 +90,10 @@ public class ReceiveMessage implements Runnable{
 
         if (!StringUtils.isEmpty(user) && !StringUtils.isEmpty(message)) {
             switch (command){
+                case "newMessages"->{
+                    panelCorrespondence.getButtonNewMessage().setBackground(MyColors.COLOR_NEW_MESSAGES.getColor());
+                    frame.pack();
+                }
                 case "chattingTo:"->{
 
                 }
@@ -100,8 +108,6 @@ public class ReceiveMessage implements Runnable{
                                 .remove( chatFrame.getPanelMessage().getReceiverComboBox());
                         chatFrame.getPanelMessage().fill_receiverBook();
                         chatFrame.getPanelMessage().getPanelReceiver().revalidate();
-//                        chatFrame.getPanelMessage().repaint();
-//                        chatFrame.frame.pack();
 
                         //прописать справочник в PanelCorrespondence
                         chatFrame.getPanelCorrespondence(). getPaneRequestCorrespondence()
