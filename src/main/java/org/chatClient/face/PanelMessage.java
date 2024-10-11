@@ -37,7 +37,7 @@ class PanelMessage extends JPanel {
     private JFrame frame;
     private PanelCorrespondence panelCorrespondence;
     private JButton buttonSend, buttonMinus, buttonPlus;
-    private JLabel receiverList;
+    private JLabel receiverList, infoLabel;
     private JScrollPane scrollMessage, scrollReceiverList;
     private String contentMessage, receiverOfMessage;
     private String reseiversString;
@@ -58,6 +58,18 @@ class PanelMessage extends JPanel {
                     contentMessage= getMessage();
 
                     String receiverOfMessage=receiverList.getText();
+                    if (receiverOfMessage.equals("")){
+                        infoLabel.setText("<html>Message have't sent. Fill receiver list.</html>");
+                        infoLabel.setForeground(Color.RED);
+                        frame.pack();
+                        return;
+                    }
+                    if (contentMessage.equals("")){
+                        infoLabel.setText("<html>Message have't sent. Fill content.</html>");
+                        infoLabel.setForeground(Color.RED);
+                        frame.pack();
+                        return;
+                    }
                     while (StringUtils.contains(receiverOfMessage,"(online)"))
                         receiverOfMessage= StringUtils.remove(receiverOfMessage," (online)");
                     String commandMessage = "chattingTo:"+ receiverOfMessage;
@@ -66,6 +78,8 @@ class PanelMessage extends JPanel {
 
                     textAreaMessage.setText("");
                     receiverList.setText("");
+                    infoLabel.setText("<html>Message have sent successfully.</html>");
+                    infoLabel.setForeground(Color.BLUE);
                     frame.pack();
                 }
             });
@@ -82,7 +96,7 @@ class PanelMessage extends JPanel {
 
 
         buttonPlus = new JButton("+");
-            buttonPlus.setFont(MyFonts.FONT_BUTTON_RECEIVER.getFont());
+            buttonPlus.setFont(MyFonts.FONT_BUTTON_MESSAGE.getFont());
 //            buttonPlus.setBounds(1, 1, 150, 150);
 //            buttonPlus.setPreferredSize(new Dimension(20,20));
             buttonPlus.addActionListener(new ActionListener() {
@@ -122,7 +136,7 @@ class PanelMessage extends JPanel {
             });
 
         buttonMinus = new JButton("-");
-            buttonMinus.setFont(MyFonts.FONT_BUTTON_RECEIVER.getFont());
+            buttonMinus.setFont(MyFonts.FONT_BUTTON_MESSAGE.getFont());
             buttonMinus.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -138,13 +152,23 @@ class PanelMessage extends JPanel {
                 }
             });
 
+
         receiverList = new JLabel();
             receiverList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
             receiverList.setFont(MyFonts.FONT_LIST_CORRESPONDENCE.getFont());
         scrollReceiverList = new JScrollPane (receiverList,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            scrollReceiverList.setPreferredSize(new Dimension(MySizePanel.WIDTH_SIZE_PANEL_RECEIVER_COMBOBOX.getSize(),40));
+            scrollReceiverList.setPreferredSize(new Dimension(MySizePanel.WIDTH_SIZE_PANEL_RECEIVER_COMBOBOX.getSize()+20,40));
+
+        JLabel docketLabel = new JLabel("<html>Receiver<br>List:</html>");
+            docketLabel.setFont(MyFonts.FONT_BUTTON_MESSAGE.getFont());
+
+        infoLabel = new JLabel();
+            infoLabel.setPreferredSize(new Dimension(80,80));
+            infoLabel.setFont(MyFonts.FONT_BUTTON_MESSAGE.getFont());
+            infoLabel.setHorizontalAlignment(JLabel.CENTER);
+            infoLabel.setVerticalAlignment(JLabel.CENTER);
 
         panelReceiver= new JPanel(new BorderLayout());
             layout= new SpringLayout();
@@ -152,11 +176,19 @@ class PanelMessage extends JPanel {
             panelReceiver.add(buttonMinus);
             panelReceiver.add(buttonPlus);
             panelReceiver.add(scrollReceiverList);
+            panelReceiver.add(docketLabel);
+            panelReceiver.add(infoLabel);
 
         fill_receiverBook();
 
-        layout.putConstraint(SpringLayout.WEST , scrollReceiverList, 20, SpringLayout.WEST , panelReceiver);
+        layout.putConstraint(SpringLayout.WEST , docketLabel, 20, SpringLayout.WEST , panelReceiver);
+        layout.putConstraint(SpringLayout.NORTH , docketLabel, 10, SpringLayout.NORTH , panelReceiver);
+
+        layout.putConstraint(SpringLayout.EAST , scrollReceiverList, 0, SpringLayout.EAST , buttonMinus);
         layout.putConstraint(SpringLayout.NORTH , scrollReceiverList, 10, SpringLayout.NORTH , panelReceiver);
+
+        layout.putConstraint(SpringLayout.WEST , infoLabel, 10, SpringLayout.EAST , buttonMinus);
+        layout.putConstraint(SpringLayout.NORTH , infoLabel, 10, SpringLayout.NORTH , panelReceiver);
 
 
         layout.putConstraint(SpringLayout.WEST , buttonPlus, 30, SpringLayout.EAST , receiverComboBox);
