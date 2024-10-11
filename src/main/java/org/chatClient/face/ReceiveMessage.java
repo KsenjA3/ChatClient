@@ -22,7 +22,6 @@ public class ReceiveMessage implements Runnable{
     private JFrame frame;
     private ChatFrame chatFrame;
     private SendMessage sendMessage;
-    private PanelCorrespondence panelCorrespondence;
     private boolean done;
 
     ReceiveMessage( ChatFrame chatFrame){
@@ -31,7 +30,6 @@ public class ReceiveMessage implements Runnable{
         socket=chatFrame.getSocketClient();
         userName=chatFrame.getNameUser();
         sendMessage= new SendMessage(chatFrame);
-        panelCorrespondence=new PanelCorrespondence(chatFrame);
     }
 
     public void run() {
@@ -91,7 +89,8 @@ public class ReceiveMessage implements Runnable{
         if (!StringUtils.isEmpty(user) && !StringUtils.isEmpty(message)) {
             switch (command){
                 case "newMessages"->{
-                    panelCorrespondence.getButtonNewMessage().setBackground(MyColors.COLOR_NEW_MESSAGES.getColor());
+                    chatFrame.getPanelCorrespondence().getButtonNewMessage().
+                            setBackground(MyColors.COLOR_NEW_MESSAGES.getColor());
                     frame.pack();
                 }
                 case "chattingTo:"->{
