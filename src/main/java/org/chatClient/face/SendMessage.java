@@ -23,12 +23,19 @@ public class SendMessage {
     }
     void sendMes (String command, String message)  {
 
+
         try{
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             out.println("command:"+ command);
             out.println("user:"+userName);
             String str = "message:"+ message.replaceAll("\n", "<br>");;
             out.println(str);
+
+            System.out.println();
+            System.out.println("---Send---:");
+            System.out.println("1command- "+"command:"+ command);
+            System.out.println("2user- "+"user:"+userName);
+            System.out.println("3message- "+str);
         } catch (IOException e) {
             e.printStackTrace();
         }

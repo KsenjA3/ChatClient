@@ -68,7 +68,8 @@ public class ReceiveMessage implements Runnable{
                         }
                     } else continue;
 
-                    System.out.println("!!!ReceiveMessage:");
+                    System.out.println();
+                    System.out.println("---Receive---:");
                     System.out.println("1command- "+command);
                     System.out.println("2user- "+user);
                     System.out.println("3message- "+message);
@@ -93,7 +94,7 @@ public class ReceiveMessage implements Runnable{
                             setBackground(MyColors.COLOR_NEW_MESSAGES.getColor());
                     frame.pack();
                 }
-                case "chattingTo:"->{
+                case "correspondence"->{
 
                 }
                 case "referenceBook"->{

@@ -1,6 +1,11 @@
 package org.chatClient.face;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.chatClient.fittings.MyColors;
@@ -240,14 +245,26 @@ class  PanelCorrespondence extends JPanel {
 
 
     private void send_request_correspondence (){
-        String type = typeMessageComboBox.getItemAt(typeMessageComboBox.getSelectedIndex());
-        String period = periodComboBox.getItemAt(periodComboBox.getSelectedIndex());
-        String person = personComboBox.getItemAt(personComboBox.getSelectedIndex());
-        String contentMessage= "type:<"+type+">period:<"+period+">person:"+person;
+        RequestCorrespondence requestCorrespondence = RequestCorrespondence.builder()
+                .type(typeMessageComboBox.getItemAt(typeMessageComboBox.getSelectedIndex()))
+                .period(periodComboBox.getItemAt(periodComboBox.getSelectedIndex()))
+                .collocutor(personComboBox.getItemAt(personComboBox.getSelectedIndex()))
+                .build();
 
+//        String type = typeMessageComboBox.getItemAt(typeMessageComboBox.getSelectedIndex());
+//        String period = periodComboBox.getItemAt(periodComboBox.getSelectedIndex());
+//        String person = personComboBox.getItemAt(personComboBox.getSelectedIndex());
+//        String contentMessage= "{\"type\":"+type+ ",\"period\":"+period+ ",\"person\":"+person+"}";
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String contentMessage= null;
+        try {
+            contentMessage = objectMapper.writeValueAsString(requestCorrespondence);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         String commandMessage = "request_correspondence";
-        sendMessage.sendMes(commandMessage,contentMessage);
 
-        System.out.println(contentMessage);
+        sendMessage.sendMes(commandMessage,contentMessage);
     }
 }
