@@ -42,33 +42,29 @@ class  PanelCorrespondence extends JPanel {
     private JTextArea txtCorrespondence;
     private  JLabel labelSender;
 
-
-    private  StringBuffer allTextCorrespondence;
-
-
     PanelCorrespondence(ChatFrame chatFrame) {
         this.chatFrame=chatFrame;
         frame=chatFrame.frame;
         sendMessage = new SendMessage(chatFrame);
 
-    //панель с сообщениями
+        //панель с сообщениями
         panel_oneMessage_inScroll = new JPanel();
         panel_oneMessage_inScroll.setLayout(new BoxLayout(panel_oneMessage_inScroll,BoxLayout.PAGE_AXIS));
         scrollCorrespondence = new JScrollPane (panel_oneMessage_inScroll,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        scrollCorrespondence.setBorder(null);
+        //scrollCorrespondence.setBorder(null);
         scrollCorrespondence.setBorder(BorderFactory.createLineBorder(Color.GRAY,2));
         scrollCorrespondence.setAlignmentX(Component.LEFT_ALIGNMENT);
         scrollCorrespondence.setPreferredSize( new Dimension(
                 MySizePanel.WIDTH_SIZE_SCROLL_CORRESPONDENCE.getSize(),
                 MySizePanel.HEIGHT_SIZE_SCROLL_CORRESPONDENCE.getSize()));
 
-    //панель с настройками запроса
+        //панель с настройками запроса
         paneRequestCorrespondence = new JPanel();
         layout= new SpringLayout();
         paneRequestCorrespondence.setLayout(layout);
-//        paneRequestCorrespondence.setBorder(BorderFactory.createLineBorder(Color.blue));
+        //paneRequestCorrespondence.setBorder(BorderFactory.createLineBorder(Color.blue));
 
         buttonRequestCorrespondence= new JButton("Receive");
             buttonRequestCorrespondence.setText("<html><center>"+"Receive"+"</center></html>");
@@ -118,10 +114,10 @@ class  PanelCorrespondence extends JPanel {
             periodLabel.setPreferredSize(new Dimension(90,20));
             periodLabel.setFont(MyFonts.FONT_LABEL_CORRESPONDENCE.getFont());
         periodComboBox=new JComboBox<>();
-            periodComboBox.addItem("all time");
             periodComboBox.addItem("for week");
             periodComboBox.addItem("for month");
             periodComboBox.addItem("for year");
+        periodComboBox.addItem("all time");
             periodComboBox.setPreferredSize(new Dimension(100,20));
             periodComboBox.setFont(MyFonts.FONT_LIST_CORRESPONDENCE.getFont());
 
@@ -155,48 +151,31 @@ class  PanelCorrespondence extends JPanel {
         layout.putConstraint(SpringLayout.WEST , buttonRequestCorrespondence, 210, SpringLayout.EAST , buttonNewMessage);
         layout.putConstraint(SpringLayout.NORTH , buttonRequestCorrespondence, 35, SpringLayout.NORTH , paneRequestCorrespondence);
 
-    // fitting panelCorrespondence
-//        setSize(MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize(),
-//                MySizePanel.HEIGHT_SIZE_PANEL_CORRESPONDENCE.getSize());
-
+        //fitting panelCorrespondence
         setLayout(new BorderLayout());
         add(scrollCorrespondence, BorderLayout.SOUTH);
         add(paneRequestCorrespondence, BorderLayout.NORTH);
 
-
-
-        //        allTextCorrespondence= new StringBuffer();
-        for (int i =1; i<20; i++){
-            String sender = " somebody";
-            String message = "text text text text text text text text text text text text text text" +
-                    "text text text text text text text text text text text text text text text text  --  ";
-            print_one_correspondence(sender, message);
-        }
+//        for (int i =1; i<20; i++){
+//            String sender = "<html>FROM userSendRequest3: on 17.10.2024 at 14.20.21<br>(familiarized on 17.10.2024 at 14.20.21)</html>)";
+//            String message = "text text text text text text text text text text text text text text" +
+//                    "text text text text text text text text text text text text text text text text  --  ";
+//            print_one_correspondence(sender, message);
+//        }
     }
 
-    void setLabelCorrespondence (String sender,String text) {
-        allTextCorrespondence.append("from: ");
-        allTextCorrespondence.append(sender);
-        allTextCorrespondence.append(":/n");
-        allTextCorrespondence.append(text);
-        allTextCorrespondence.append("/n");
-        allTextCorrespondence.append("/n");
-
-//        labelCorrespondence.setText(allTextCorrespondence.toString());
-    }
-
-    private void print_one_correspondence(String sender, String message){
+    protected void print_one_correspondence(String sender, String message){
         //панель информации об отправителе
         JPanel panel_info_user = new JPanel(new BorderLayout());
-        panel_info_user.setSize(MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize(),
-                MySizePanel.HEIGHT_SIZE_PANEL_CORRESPONDENCE.getSize());
+//        panel_info_user.setPreferredSize(new Dimension( MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize(), 30));
 
         labelSender= new JLabel();
         labelSender.setFont(MyFonts.FONT_LABEL_SENDER_CORRESPONDENCE.getFont());
         labelSender.setBackground(MyColors.COLOR_LABEL_SENDER_CORRESPONDENCE_BACKGROUND.getColor());
         labelSender.setText(sender);
+//        labelSender.setPreferredSize(new Dimension( MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize()-10,  20));
 
-        panel_info_user.add(labelSender, BorderLayout.WEST);
+        panel_info_user.add(labelSender, BorderLayout.CENTER);
 
         txtCorrespondence = new JTextArea();
         txtCorrespondence.setBackground(MyColors.COLOR_AREA_MESSAGE_BACKGROUND.getColor());
@@ -204,19 +183,18 @@ class  PanelCorrespondence extends JPanel {
         txtCorrespondence.setLineWrap(true);
         txtCorrespondence.setWrapStyleWord(true);
         txtCorrespondence.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
-//        txtCorrespondence.setPreferredSize(new Dimension(320,50));
         txtCorrespondence.setText(message);
+//        txtCorrespondence.setPreferredSize(new Dimension( MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize()-10,10));
 
         panel_oneMessage_inScroll.add(panel_info_user);
         panel_oneMessage_inScroll.add(txtCorrespondence);
-        panel_oneMessage_inScroll.add(Box.createRigidArea(new Dimension(2, 8)));
+        panel_oneMessage_inScroll.add(Box.createRigidArea(new Dimension(2, 4)));
     }
 
     void fill_personComboBox() {
         personComboBox=new JComboBox<>();
             personComboBox.setPreferredSize(new Dimension(100,20));
             personComboBox.setFont(MyFonts.FONT_LIST_CORRESPONDENCE.getFont());
-
             personComboBox.addItem("all");
             chatFrame.getReferenceBook().forEach((user,online)->{
                 String str ;
@@ -234,15 +212,11 @@ class  PanelCorrespondence extends JPanel {
         paneRequestCorrespondence.setPreferredSize( new Dimension(
                 MySizePanel.WIDTH_SIZE_REQUEST_CORRESPONDENCE.getSize(),
                 MySizePanel.HEIGHT_SIZE_REQUEST_CORRESPONDENCE.getSize()));
-
         setPreferredSize( new Dimension(
                 MySizePanel.WIDTH_SIZE_PANEL_CORRESPONDENCE.getSize(),
                 MySizePanel.HEIGHT_SIZE_PANEL_CORRESPONDENCE.getSize()));
-
         paneRequestCorrespondence.add(personComboBox);
-
     }
-
 
     private void send_request_correspondence (){
         RequestCorrespondence requestCorrespondence = RequestCorrespondence.builder()
@@ -250,12 +224,6 @@ class  PanelCorrespondence extends JPanel {
                 .period(periodComboBox.getItemAt(periodComboBox.getSelectedIndex()))
                 .collocutor(personComboBox.getItemAt(personComboBox.getSelectedIndex()))
                 .build();
-
-//        String type = typeMessageComboBox.getItemAt(typeMessageComboBox.getSelectedIndex());
-//        String period = periodComboBox.getItemAt(periodComboBox.getSelectedIndex());
-//        String person = personComboBox.getItemAt(personComboBox.getSelectedIndex());
-//        String contentMessage= "{\"type\":"+type+ ",\"period\":"+period+ ",\"person\":"+person+"}";
-
         ObjectMapper objectMapper = new ObjectMapper();
         String contentMessage= null;
         try {
@@ -264,7 +232,6 @@ class  PanelCorrespondence extends JPanel {
             e.printStackTrace();
         }
         String commandMessage = "request_correspondence";
-
         sendMessage.sendMes(commandMessage,contentMessage);
     }
 }

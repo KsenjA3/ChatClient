@@ -95,7 +95,17 @@ public class ReceiveMessage implements Runnable{
                     frame.pack();
                 }
                 case "correspondence"->{
-
+                    try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    TreeMap<String, String> mapCorrespondence=  mapper.readValue(message, new TypeReference<TreeMap<String, String>>() {});
+                        mapCorrespondence.forEach((collocutor,mess)->{
+                            String infoCollocutor = turnCollocutorForm(collocutor);
+                            chatFrame.getPanelCorrespondence().print_one_correspondence(infoCollocutor,mess);
+                        });
+                    chatFrame.frame.pack();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
                 }
                 case "referenceBook"->{
                     try {
@@ -115,7 +125,6 @@ public class ReceiveMessage implements Runnable{
                         chatFrame.getPanelCorrespondence().fill_personComboBox();
                         chatFrame.getPanelCorrespondence().revalidate();
 
-
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
@@ -128,6 +137,18 @@ public class ReceiveMessage implements Runnable{
         }
     }
 
-
+     protected String turnCollocutorForm (String collocutor){
+         int indexEndTime = collocutor.indexOf('-');
+         int indexEndCollocutor= collocutor.indexOf(':');
+         String infoCollocutor ="<html>"+collocutor.substring(indexEndTime+1, indexEndCollocutor+1)
+                 +" "+ collocutor.substring(6,indexEndTime);
+         if (collocutor.contains("<br>"))
+             infoCollocutor=infoCollocutor+collocutor.substring(indexEndCollocutor+1, collocutor.length()-7);
+         infoCollocutor=infoCollocutor+"</html>";
+         infoCollocutor=StringUtils.replaceOnce(infoCollocutor,"<html>TO","<html>&ensp;TO");
+         infoCollocutor=StringUtils.replaceOnce(infoCollocutor,"<html>FROM","<html>&ensp;FROM");
+         infoCollocutor=StringUtils.replaceOnce(infoCollocutor,"<br>(familiarized","<br>&nbsp;(familiarized");
+         return infoCollocutor;
+     }
 
 }
